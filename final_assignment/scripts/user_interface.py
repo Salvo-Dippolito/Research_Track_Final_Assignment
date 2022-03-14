@@ -161,10 +161,10 @@ class Set_goal():
             get_option()
      
 def set_manual_drive():
-    print("Manual drive engaged, to control the robot use the Teleop terminal  ", end = "\r", flush=True)
+    print(" Manual drive engaged, to control the robot use the Teleop terminal  ", end = "\r", flush=True)
 
 def set_assisted_drive():
-    print("Assisted drive engaged, to control the robot use the Teleop terminal", end = "\r", flush=True)
+    print(" Assisted drive engaged, to control the robot use the Teleop terminal", end = "\r", flush=True)
 
 def close():
 
@@ -174,7 +174,7 @@ def close():
     rospy.signal_shutdown("requested shutdown")
 
 def default():
-    print("Invalid option, select fom the menu", end = "\r", flush=True)
+    print(" Invalid option, select fom the menu", end = "\r", flush=True)
  
 def change_op_client(operation):
 
