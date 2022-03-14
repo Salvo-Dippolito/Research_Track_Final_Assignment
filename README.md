@@ -1,6 +1,7 @@
 # Research_Track_Final_Assignment
 
 ### Exercise Objectives ###
+
 The robot should be able to operate in three different modes:
 
   - Point to point navigation to targets given by the user.  
@@ -143,9 +144,47 @@ user_interface node.
  
 - config folder: needed for Rviz 
  
-- param folder: parameters needed for the gslamming and mapping carried out by move_base 
+- param folder: parameters needed for the slam_gmapping and move_base nodes 
 
 - CmakeLists.txt and package.xml files are for ros functionalities
+
+### Launching the Simulation ###
+
+1) Clone this repository in your ros workspace folder
+2) Make sure you have xterm installed, it is used by the launch file to open the three terminals.
+3) This package depends on two packages called gmapping and slam_gmapping which are included in this repository
+   Make sure to also clone these in your ROS workspace
+
+4) Check also if the ROS navigation stack and the teleop_twist_keyboard package are installed:
+
+```
+$ sudo apt-get install ros-<your_ros_distribution>-navigation
+```
+and
+```
+$ sudo apt-get install ros-<your_ros_distribution>-teleop-twist-keyboard
+```
+5)Once all packages have been installed, run this from the workspace directory:
+
+```
+$ catkin_make
+```
+6) To finally launch the simulation run this command in any terminal:
+
+```
+$ roslaunch final_assignment home_rover.launch
+```
+To actually control the robot just follow the instructions printed on the user_interface terminal.
+### Future Improvements ###
+
+There are some issues with launching the Gazebo and Rviz environments with this ros noetic version, everything runs 
+but the main terminal gets spammed with warnings. This might conceal one of the reasons of why it can take up to 
+two or three minutes for the rover to receive the correct status update after it has reached its user-defined goal. 
+One great improvement for ease of use would be to find a way to have all three terminals bundled in one macro 
+terminal at launch, so the user wouldn't have to move three different terminals at the same time. Finally the 
+change_op_client() function should be moved at the start of the set_goal set_manual and set_assisted functions so 
+that the server gets called only for valid keyboard inputs, leaving everything as it is however doesn't change the 
+user experience in any significant way.
                 
                 
                 
