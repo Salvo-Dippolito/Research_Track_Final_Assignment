@@ -129,7 +129,7 @@ user_interface node.
                 
                 pubblish the spped values that have been set
  
-### Contents of the Package ###
+### Contents of the final_assignment Package ###
 
 - launch folder: contains the main launch file home_rover.launch and the other two launch files called by 
                  the main one
