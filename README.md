@@ -10,7 +10,7 @@ The robot should be able to operate in three different modes:
 
 The first mode must be carried out by comunicating to the move_base action server. Manual control of the robot should 
 be carried out either by building a new control node or by remapping the teleop_keyboard_twist node onto a new topic 
-that mediates between teleop commands and user defined operating modes.
+that publishes for a node that in turn mediates between teleop commands and user defined operating modes.
 
 
 ### Chosen Approach to Complete the Objectives ###
