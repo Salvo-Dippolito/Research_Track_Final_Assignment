@@ -152,8 +152,8 @@ user_interface node.
 
 1) Clone this repository in your ros workspace folder
 2) Make sure you have xterm installed, it is used by the launch file to open the three terminals.
-3) This package depends on two packages called gmapping and slam_gmapping which are included in this repository
-   Make sure to also clone these in your ROS workspace
+3) The final_assignment package depends on two other packages called gmapping and slam_gmapping which are included in this repository
+   Make sure they're also properly included in your ROS workspace
 
 4) Check also if the ROS navigation stack and the teleop_twist_keyboard package are installed:
 
