@@ -177,24 +177,12 @@ $ roslaunch final_assignment home_rover.launch
 To actually control the robot just follow the instructions printed on the user_interface terminal.
 ### Future Improvements ###
 
-There are some issues with launching the Gazebo and Rviz environments with this ros noetic version, everything runs 
+There are some issues with launching the Gazebo and Rviz environments with the ROS noetic version, everything runs 
 but the main terminal gets spammed with warnings. This might conceal one of the reasons of why it can take up to 
 two or three minutes for the rover to receive the correct status update after it has reached its user-defined goal. 
 One great improvement for ease of use would be to find a way to have all three terminals bundled in one macro 
 terminal at launch, so the user wouldn't have to move three different terminals at the same time. Finally the 
-change_op_client() function should be moved at the start of the set_goal set_manual and set_assisted functions so 
+change_op_client() function should be moved at the start of the set_goal, set_manual and set_assisted functions so 
 that the server gets called only for valid keyboard inputs, leaving everything as it is however doesn't change the 
-user experience in any significant way.
+user experience in any significant way.          
                 
-                
-                
-                
-            
-    
-          
-    
-    
-
-    
-
-    
