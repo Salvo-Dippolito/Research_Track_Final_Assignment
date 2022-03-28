@@ -61,7 +61,7 @@ user_interface node.
                   reset screen terminal
              
               'g': manual_drive():
-                  notify the user about the current mode and to use telep terminal
+                  notify the user about the current mode and to use teleop terminal
 
               'b': assisted_drive():
                   notify the user about the current mode and to use the teleop terminal
