@@ -61,7 +61,7 @@ user_interface node.
                   reset screen terminal
              
               'g': manual_drive():
-                  notify the user about the current mode and to use teleop terminal
+                  notify the user about the current mode and to use the teleop terminal
 
               'b': assisted_drive():
                   notify the user about the current mode and to use the teleop terminal
@@ -124,10 +124,10 @@ user_interface node.
                 if turning left and no space to move:
                   stop motors and notify user
                 
-                if none of the above
-                  do nothing, not changing speeds set by mediate calback in assisted_drive mode
+                if none of the above:
+                  do nothing, not changing speeds set by the 'mediate' callback in assisted_drive mode
                 
-                pubblish the spped values that have been set
+                pubblish the speed values that have been set
  
 ### Contents of the final_assignment Package ###
 
