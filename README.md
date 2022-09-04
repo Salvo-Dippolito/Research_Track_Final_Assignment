@@ -158,21 +158,21 @@ user_interface node.
 4) Check also if the ROS navigation stack and the teleop_twist_keyboard package are installed:
 
 ```
-$ sudo apt-get install ros-<your_ros_distribution>-navigation
+sudo apt-get install ros-<your_ros_distribution>-navigation
 ```
 and
 ```
-$ sudo apt-get install ros-<your_ros_distribution>-teleop-twist-keyboard
+sudo apt-get install ros-<your_ros_distribution>-teleop-twist-keyboard
 ```
 5)Once all packages have been installed, run this from the workspace directory:
 
 ```
-$ catkin_make
+catkin_make
 ```
 6) To finally launch the simulation run this command in any terminal:
 
 ```
-$ roslaunch final_assignment home_rover.launch
+roslaunch final_assignment home_rover.launch
 ```
 To actually control the robot just follow the instructions printed on the user_interface terminal.
 ### Future Improvements ###
