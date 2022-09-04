@@ -164,7 +164,7 @@ and
 ```
 sudo apt-get install ros-<your_ros_distribution>-teleop-twist-keyboard
 ```
-5)Once all packages have been installed, run this from the workspace directory:
+5) Once all packages have been installed, run this from the workspace directory:
 
 ```
 catkin_make
