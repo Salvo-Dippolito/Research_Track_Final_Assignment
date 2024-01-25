@@ -10,7 +10,15 @@ import os
 import subprocess
 import sys
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../final_assignment/'))
+# Get the directory of the current script
+# current_script_directory = os.path.dirname(os.path.abspath(__file__))
+
+# # Construct the absolute path to the desired directory
+# scripts_directory = os.path.join(current_script_directory, '..', 'scripts')
+
+# # Add the directory to the Python path
+# sys.path.insert(0, scripts_directory)
 
 project = 'Research Track 1 Final Assignment'
 copyright = "2023, Salvatore D'Ippolito"

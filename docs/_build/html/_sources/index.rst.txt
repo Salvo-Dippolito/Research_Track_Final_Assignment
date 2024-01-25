@@ -19,9 +19,5 @@ This is the documentation for Salvatore D'Ippolito's solution to the final assig
 
 
 
-Indices and tables
-==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
