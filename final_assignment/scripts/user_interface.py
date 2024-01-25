@@ -1,5 +1,26 @@
 #! /usr/bin/env python3
 
+"""
+
+.. module:: user_interface
+  :platform: Unix
+  :synopsis: Python module for the user_interface functionalities of the rover
+
+
+  This node provides a user interface to choose between the possible rover operation configurations.
+
+
+Services:
+
+  /move_base     this node is a client to the move base action server, it sends the user defined coordinates as a goal.
+
+  /change_operation this node is a client for the change operation service, it sends a request that will comunicate to the drive_assist node what 
+                    control option has been chosen from the user.
+ 
+
+
+"""
+
 from http import client
 import rospy
 import sys, select, termios, tty
@@ -29,7 +50,18 @@ options_list="""
 """
 
 def get_option():
+    """
+    This function is used to take inputs from the keyboard
+
+    Returns:
+
+        char: keyboard input from user passed as char variable
+
+
+    """
+    # set the terminal to raw mode
     tty.setraw(sys.stdin.fileno())
+    # check 
     rlist, _, _ = select.select([sys.stdin], [], [], None)
     if rlist:
         key = sys.stdin.read(1)
@@ -38,7 +70,19 @@ def get_option():
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
     return key
 
+
 def not_a_float(value):
+    """
+    This function checks if the char variable that has been received can be converted to type float.
+
+    Args:
+        value (str): variable to be checked
+
+    Returns:
+        True: char variable can be converted to a value of type float.
+        False: received char variable isn't a number, cant be urned into a variable of type float.
+
+    """
     try:
         float(value)
     except:
@@ -47,6 +91,12 @@ def not_a_float(value):
         return 0
 
 def get_coordinates():
+    """
+    This function gets x and y target coordinates from keyboard input.
+
+    Returns:
+        x,y (float tuple)
+    """
     x=''
     y=''
 
@@ -59,9 +109,27 @@ def get_coordinates():
     return float(x), float(y)
 
 class Set_goal():
+    """
+    This class is used to send and cancel goals to the move_base action client.
 
-    #Class to send and cancel goals to the move_base action client
+    Attributes:
+        reached (int): Flag indicating whether the goal has been reached (1 if reached, 0 otherwise).
+        aborted (int): Flag indicating whether the goal has been aborted by the action server (1 if aborted, 0 otherwise).
+        rejected (int): Flag indicating whether the goal has been rejected by the action server (1 if rejected, 0 otherwise).
+        flag (int): Internal flag used to signal when something happened during goal execution.
+        
+ 
+    """
     def __init__(self):
+
+        """
+        Constructor method that initializes the Set_goal instance.
+
+        It prompts the user to enter target coordinates and sets up the move_base action client.
+
+        Returns:
+            None
+        """
         self.reached = 0
         self.aborted = 0
         self.rejected = 0
@@ -95,8 +163,18 @@ class Set_goal():
 
     def done_cb(self, status, result):
 
-    # This callback interprets the received goal status for the user 
-    # Reference for terminal status values: http://docs.ros.org/diamondback/api/actionlib_msgs/html/msg/GoalStatus.html
+        """
+        Callback function for handling the completion status of the goal.
+
+        Interprets the received goal status for the user.
+
+        Args:
+            status (int): The completion status of the goal.
+            result (MoveBaseResult): The result of the completed goal.
+
+        Returns:
+            None
+        """
         if status == 2:
             print("  Received a cancel request\n\n\r  Press any key to go back to options\n\r")
             
@@ -113,15 +191,40 @@ class Set_goal():
             self.rejected = 1          
 
     def active_cb(self):
+        """
+        Callback function called when the goal becomes active.
+
+        Prints instructions for canceling the current goal.
+
+        Returns:
+            None
+        """
         print("  To cancel current goal: press 'c'\n\r", flush=True)
 
     def feedback_cb(self, feedback ):
+        """
+        Callback function for handling feedback during goal execution.
+
+        Args:
+            feedback (MoveBaseFeedback): The feedback received during goal execution.
+
+        Returns:
+            None
+        """
         
         #Uncomment this to have the feedback printed on the terminal: 
         #print(str(feedback))
         pass
     
     def something_happened(self):
+        """
+        Checks if the goal has been reached, aborted, or rejected.
+
+        Resets flags and returns 1 if any of the conditions are met.
+
+        Returns:
+            int: 1 
+        """
         if self.reached == 1 or self.aborted == 1 or self.rejected == 1 :
             
             self.reached = 0
@@ -132,6 +235,16 @@ class Set_goal():
             return 1
 
     def try_goal(self,goal_x,goal_y):
+        """
+        Attempts to send the goal to the move_base action server.
+
+        Args:
+            goal_x (float): The x-coordinate of the target position.
+            goal_y (float): The y-coordinate of the target position.
+
+        Returns:
+            None
+        """
 
         goal=MoveBaseGoal()
 
@@ -178,9 +291,25 @@ def default():
  
 def change_op_client(operation):
 
-    #This takes in the desired user command and sends it as a request to the change_operation service
+    """
+    Sends a request to the 'change_operation' service to change the current operation mode.
+
+    This function takes in a desired user command (operation) and sends it as a request to the 'change_operation'
+    service, which communicates the chosen control option to the 'drive_assist' node.
+
+    Args:
+        operation (str): The user command representing the desired operation mode.
+
+    Returns:
+        None
+
+    Raises:
+        rospy.ServiceException: If there is an issue executing the service call.
+
+    Note:
+        The global variable 'current_op' is not used in this function.
+    """
     
-    global current_op
     rospy.wait_for_service('/change_operation')    
 
     try:
@@ -190,6 +319,24 @@ def change_op_client(operation):
         print("Couldn't execute service call: %s" %e) 
 
 def main():
+
+    """
+    The main function that runs the user interface for the rover control.
+
+    It initializes the necessary settings, sets up the ROS node, and enters a loop to interact with the user.
+
+    The loop continuously takes user commands, calls the appropriate service to set the current operation mode, and
+    executes the desired function based on user input.
+
+    The available commands are:
+        - 't': Set a new target position using the Set_goal class.
+        - 'g': Enable manual drive using the set_manual_drive function.
+        - 'b': Enable assisted drive using the set_assisted_drive function.
+        - 'q': Close the program using the close function.
+
+    Returns:
+        None
+    """
 
     run_action= {
     't' : Set_goal,
