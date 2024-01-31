@@ -306,8 +306,7 @@ def change_op_client(operation):
     Raises:
         rospy.ServiceException: If there is an issue executing the service call.
 
-    Note:
-        The global variable 'current_op' is not used in this function.
+
     """
     
     rospy.wait_for_service('/change_operation')    

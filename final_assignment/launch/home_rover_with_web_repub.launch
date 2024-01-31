@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<include file = "$(find final_assignment)/launch/simulation_gmapping.launch"/>
+	<include file = "$(find final_assignment)/launch/move_base.launch"/>
+	
+	<node name="teleop_twist_keyboard_py" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e" >
+        <remap from="/cmd_vel" to="/suggestion"/>
+    </node>
+	
+	<node name="drive_assist_py" pkg="final_assignment" type="drive_assist.py" output="screen" required = "true" launch-prefix="xterm -e"/> 
+    
+	<node name="user_interface_py" pkg="final_assignment" type="user_interface.py" output="screen" required = "true" launch-prefix="xterm -e"/>
+
+	<include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" /> 
+  	<node pkg="tf2_web_republisher" type="tf2_web_republisher" name="tf2_web_republisher" />
+    
+</launch>
