@@ -2,6 +2,8 @@
 
 [Code Documentation](https://salvo-dippolito.github.io/Research_Track_Final_Assignment/)
 
+[New User interface with jupyter notebook](https://github.com/Salvo-Dippolito/Research_Track_Final_Assignment/tree/main/Notebook)
+
 ### Exercise Objectives ###
 
 The robot should be able to operate in three different modes:
@@ -177,6 +179,11 @@ catkin_make
 roslaunch final_assignment home_rover.launch
 ```
 To actually control the robot just follow the instructions printed on the user_interface terminal.
+
+#### Jupyter Notebook interface ###
+
+As an assignment for another course, a more advanced user interface has been developed in the form of a [jupyter notebook](https://github.com/Salvo-Dippolito/Research_Track_Final_Assignment/tree/main/Notebook). To use this interface launch the whole simulation as described above and then run ``` jupyter notebook --allow-root ``` from the notebook's base directory. Open the notebook and then run all cells, control buttons and real time robot data graphs should appear.
+
 ### Future Improvements ###
 
 There are some issues with launching the Gazebo and Rviz environments with the ROS noetic version, everything runs 
